@@ -16,6 +16,22 @@ BEGIN;
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
+-- Ensure the runtime role exists. On docker-compose it's created by
+-- docker/init/01-roles.sql before migrations run; on Railway (which
+-- has no init-scripts hook) this DO block creates it on the first
+-- migration. Idempotent either way. The password is a placeholder —
+-- Railway's managed Postgres doesn't hand the app an unrestricted
+-- role, so bf_chat is currently unused in production and everything
+-- goes through the postgres role. FORCE ROW LEVEL SECURITY below
+-- makes that safe anyway.
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'bf_chat') THEN
+    CREATE ROLE bf_chat WITH LOGIN PASSWORD 'bf_chat_dev';
+  END IF;
+END
+$$;
+
 -- ── Chat identity registration ─────────────────────────────────────
 -- One row per user who has ever registered their crypto identity
 -- with the chat service. identity_key is Curve25519 public in
