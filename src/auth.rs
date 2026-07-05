@@ -65,9 +65,9 @@ impl Verifier {
         let me: MeResponse = resp.json().await?;
         self.cache.insert(
             token.to_string(),
-            (me.user_id, Instant::now() + Duration::from_secs(30)),
+            (me.id, Instant::now() + Duration::from_secs(30)),
         );
-        Ok(me.user_id)
+        Ok(me.id)
     }
 
     /// Internal-service escape hatch: skip upstream and trust an
@@ -87,5 +87,8 @@ impl Verifier {
 
 #[derive(Deserialize)]
 struct MeResponse {
-    user_id: Uuid,
+    // box-fraise-server returns the user's UUID under `id`, not
+    // `user_id`. Alias in case that ever changes.
+    #[serde(alias = "user_id")]
+    id: Uuid,
 }
