@@ -1,4 +1,4 @@
-FROM rust:1.83-slim AS build
+FROM rust:1.95-slim-bookworm AS build
 WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config libssl-dev ca-certificates \
