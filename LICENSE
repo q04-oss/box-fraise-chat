@@ -1,0 +1,19 @@
+                    GNU AFFERO GENERAL PUBLIC LICENSE
+                       Version 3, 19 November 2007
+
+ Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+ Everyone is permitted to copy and distribute verbatim copies of this
+ license document, but changing it is not allowed.
+
+This project is licensed under the GNU AGPLv3.
+
+Full text: https://www.gnu.org/licenses/agpl-3.0.txt
+
+If you run a modified version of this software as a network service,
+you must make the source code of your modifications available to
+users of that service under the same license.
+
+This is the same license Signal uses for libsignal, and is intentional
+here: the security properties of end-to-end encrypted messaging depend
+on the ability for anyone running a service to be inspected. Do not
+attempt to distribute closed-source derivatives.

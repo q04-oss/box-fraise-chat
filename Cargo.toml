@@ -1,0 +1,37 @@
+[package]
+name    = "box-fraise-chat"
+version = "0.1.0"
+edition = "2021"
+# AGPLv3, matching Signal's protocol implementations. Do not
+# combine this crate's source with proprietary code.
+license = "AGPL-3.0-or-later"
+
+[dependencies]
+axum         = { version = "0.8", features = ["ws", "macros"] }
+tokio        = { version = "1", features = ["full"] }
+tower        = "0.5"
+tower-http   = { version = "0.6", features = ["trace", "cors"] }
+tracing      = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+serde        = { version = "1", features = ["derive"] }
+serde_json   = "1"
+uuid         = { version = "1", features = ["v4", "serde"] }
+chrono       = { version = "0.4", features = ["serde"] }
+sqlx         = { version = "0.8", features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono", "macros", "migrate"] }
+thiserror    = "1"
+anyhow       = "1"
+reqwest      = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+futures      = "0.3"
+tokio-stream = "0.1"
+base64       = "0.22"
+rand         = "0.8"
+dashmap      = "6"
+
+[dev-dependencies]
+reqwest        = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+tokio-tungstenite = { version = "0.24", default-features = false, features = ["connect", "rustls-tls-native-roots"] }
+
+[profile.release]
+lto           = "thin"
+codegen-units = 1
+strip         = "symbols"

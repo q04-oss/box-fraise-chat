@@ -1,0 +1,9 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand       = "box-fraise-chat"
+healthcheckPath    = "/healthz"
+healthcheckTimeout = 30
+restartPolicyType  = "ON_FAILURE"
